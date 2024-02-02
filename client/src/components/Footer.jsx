@@ -12,7 +12,7 @@ import { Button } from "./ui/button";
 
 function Footer() {
   return (
-    <footer className="fixed bottom-0  w-full px-20 py-2 bg-secondary text-secondary-foreground">
+    <footer className="relative bottom-0  w-full px-20 py-2 bg-secondary text-secondary-foreground">
       <div className="flex justify-center items-center text-xs">
         <div className="flex-1 g-3 text-sm">
           <h1 className="font-bold text-4xl p-3">ABCXYZ</h1>
