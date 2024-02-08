@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Layout from "@/components/Layout";
 
 const countryNames = [
   "Afghanistan",
@@ -260,141 +261,131 @@ function Checkout() {
   };
 
   return (
-    <div className="bg-[#F8FFB3]">
-      <Hero />
-      <div className="h-fit px-[105px] py-[110px] flex gap-10">
-        <div className="h-fit w-[608px] bg-[#FFFDE9]">
-          <h1 className="font-semibold text-3xl mx-12 relative -top-3">
-            Billing details
-          </h1>
-          <div className="px-16 py-10">
-            <form
-              ref={formRef}
-              action="/"
-              method="get"
-              className="flex flex-col space-y-9"
-            >
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col space-y-6">
-                  <Label className="text-[16px] font-medium">First Name</Label>
-                  <Input />
-                </div>
-                <div className="flex flex-col space-y-5">
-                  <Label className="text-[16px] font-medium">Last Name</Label>
-                  <Input />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-5 w-full">
-                <Label className="text-[16px] font-medium">
-                  Company Name (Optional)
-                </Label>
+    <Layout hero={<Hero />}>
+      <div className="h-fit w-[608px] bg-[#FFFDE9]">
+        <h1 className="font-semibold text-3xl mx-12 relative -top-3">
+          Billing details
+        </h1>
+        <div className="px-16 py-10">
+          <form
+            ref={formRef}
+            action="/payment"
+            method="get"
+            className="flex flex-col space-y-9"
+          >
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col space-y-6">
+                <Label className="text-[16px] font-medium">First Name</Label>
                 <Input />
               </div>
-              <div className="flex flex-col space-y-5 w-full">
-                <Label className="text-[16px] font-medium">
-                  Country / Region
-                </Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countryNames.map((item, index) => {
-                      return (
-                        <SelectItem key={index} value={item}>
-                          {item}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
+              <div className="flex flex-col space-y-5">
+                <Label className="text-[16px] font-medium">Last Name</Label>
+                <Input />
               </div>
-              {inputFields.map((item, index) => {
-                return (
-                  <div key={index} className="flex flex-col space-y-5 w-full">
-                    <Label className="text-[16px] font-medium">
-                      {item.inputName}
-                    </Label>
-                    <Input
-                      type={item.inputType}
-                      placeholder={item.inputPlaceholder}
-                    />
-                  </div>
-                );
-              })}
-            </form>
-          </div>
-        </div>
-        <div className="h-fit w-[508px] bg-[#FFFDE9] px-8 py-10 flex flex-col space-y-10    ">
-          <div className="flex flex-col space-y-4 w-full">
-            <div className="flex justify-between items-center">
-              <h1 className="font-semibold text-2xl">Product</h1>
-              <h1 className="font-semibold text-2xl">Subtotal</h1>
             </div>
-            <div className="flex justify-between items-center">
-              <p className="font-light text-base flex justify-between w-1/3">
-                <span className="uppercase font-normal text-muted-foreground">
-                  shoes
-                </span>
-                <span>X 1</span>
-              </p>
-              <p className="text-base">Rs. 250,000.000</p>
+            <div className="flex flex-col space-y-5 w-full">
+              <Label className="text-[16px] font-medium">
+                Company Name (Optional)
+              </Label>
+              <Input />
             </div>
-            <div className="flex justify-between items-center">
-              <p>Subtotal</p>
-              <p>Rs. 250,000.000</p>
+            <div className="flex flex-col space-y-5 w-full">
+              <Label className="text-[16px] font-medium">
+                Country / Region
+              </Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Country" />
+                </SelectTrigger>
+                <SelectContent>
+                  {countryNames.map((item, index) => {
+                    return (
+                      <SelectItem key={index} value={item}>
+                        {item}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
             </div>
-            <div className="flex justify-between items-center">
-              <p>Total</p>
-              <p className="text-[#B88E2F] text-2xl font-bold">
-                Rs. 250,000.000
-              </p>
-            </div>
-          </div>
-          <div>
-            <RadioGroup defaultValue="Direct Bank Transfer">
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem
-                  value="Direct Bank Transfer"
-                  id="Direct Bank Transfer"
-                />
-                <Label htmlFor="Direct Bank Transfer">
-                  Direct Bank Transfer
-                </Label>
-              </div>
-              <p className="font-light text-base m-3">
-                Make your payment directly into our bank account. Please use
-                your Order ID as the payment reference. Your order will not be
-                shipped until the funds have cleared in our account.
-              </p>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem
-                  value="Cash On Delivery"
-                  id="Cash On Delivery"
-                />
-                <Label
-                  htmlFor="Cash On Delivery"
-                  className=" text-muted-foreground"
-                >
-                  Cash On Delivery
-                </Label>
-              </div>
-            </RadioGroup>
-            <p className="my-6">
-              Your personal data will be used to support your experience
-              throughout this website, to manage access to your account, and for
-              other purposes described in our <b>privacy policy.</b>
-            </p>
-            <Button
-              onClick={handleSubmit}
-              className="block m-auto w-1/2 bg-transparent hover:bg-secondary border border-black text-black rounded-lg hover:text-white hover:border-0 h-12 text-lg"
-            >
-              Place Order
-            </Button>
-          </div>
+            {inputFields.map((item, index) => {
+              return (
+                <div key={index} className="flex flex-col space-y-5 w-full">
+                  <Label className="text-[16px] font-medium">
+                    {item.inputName}
+                  </Label>
+                  <Input
+                    type={item.inputType}
+                    placeholder={item.inputPlaceholder}
+                  />
+                </div>
+              );
+            })}
+          </form>
         </div>
       </div>
-    </div>
+      <div className="h-fit w-[508px] bg-[#FFFDE9] px-8 py-10 flex flex-col space-y-10    ">
+        <div className="flex flex-col space-y-4 w-full">
+          <div className="flex justify-between items-center">
+            <h1 className="font-semibold text-2xl">Product</h1>
+            <h1 className="font-semibold text-2xl">Subtotal</h1>
+          </div>
+          <div className="flex justify-between items-center">
+            <p className="font-light text-base flex justify-between w-1/3">
+              <span className="uppercase font-normal text-muted-foreground">
+                shoes
+              </span>
+              <span>X 1</span>
+            </p>
+            <p className="text-base">Rs. 250,000.000</p>
+          </div>
+          <div className="flex justify-between items-center">
+            <p>Subtotal</p>
+            <p>Rs. 250,000.000</p>
+          </div>
+          <div className="flex justify-between items-center">
+            <p>Total</p>
+            <p className="text-[#B88E2F] text-2xl font-bold">Rs. 250,000.000</p>
+          </div>
+        </div>
+        <div>
+          <RadioGroup defaultValue="Direct Bank Transfer">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem
+                value="Direct Bank Transfer"
+                id="Direct Bank Transfer"
+              />
+              <Label htmlFor="Direct Bank Transfer">Direct Bank Transfer</Label>
+            </div>
+            <p className="font-light text-base m-3">
+              Make your payment directly into our bank account. Please use your
+              Order ID as the payment reference. Your order will not be shipped
+              until the funds have cleared in our account.
+            </p>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="Cash On Delivery" id="Cash On Delivery" />
+              <Label
+                htmlFor="Cash On Delivery"
+                className=" text-muted-foreground"
+              >
+                Cash On Delivery
+              </Label>
+            </div>
+          </RadioGroup>
+          <p className="my-6">
+            Your personal data will be used to support your experience
+            throughout this website, to manage access to your account, and for
+            other purposes described in our <b>privacy policy.</b>
+          </p>
+          <Button
+            onClick={handleSubmit}
+            className="block m-auto w-1/2 bg-transparent hover:bg-secondary border border-black text-black rounded-lg hover:text-white hover:border-0 h-12 text-lg"
+          >
+            Place Order
+          </Button>
+        </div>
+      </div>
+    </Layout>
   );
 }
 

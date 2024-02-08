@@ -38,7 +38,7 @@ function Breadcrumb() {
               </Link>
             </div>
           </li>
-          {/* <li aria-current="page">
+          <li aria-current="page">
             <div className="flex items-center">
               <svg
                 className="rtl:rotate-180 w-3 h-3 text-black mx-1"
@@ -56,10 +56,10 @@ function Breadcrumb() {
                 />
               </svg>
               <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-black">
-                Flowbite
+                Payment
               </span>
             </div>
-          </li> */}
+          </li>
         </ol>
       </nav>
     </div>
