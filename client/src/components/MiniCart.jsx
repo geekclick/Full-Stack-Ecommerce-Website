@@ -2,6 +2,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { BsBagX } from "react-icons/bs";
 import minicart from "@/assets/minicart.png";
 import Image from "./Image";
+import { Link } from "react-router-dom";
 function MiniCart() {
   return (
     <>
@@ -32,9 +33,11 @@ function MiniCart() {
         <button className="border bg-transparent hover:text-white hover:bg-black transition-all duration-200 text-sm text-black border-black rounded-full px-4 py-1">
           View Cart
         </button>
-        <button className="border bg-transparent hover:text-white hover:bg-black transition-all duration-200 text-sm text-black border-black rounded-full px-4 py-1">
-          Checkout
-        </button>
+        <Link to="/checkout">
+          <button className="border bg-transparent hover:text-white hover:bg-black transition-all duration-200 text-sm text-black border-black rounded-full px-4 py-1">
+            Checkout
+          </button>
+        </Link>
       </div>
     </>
   );
