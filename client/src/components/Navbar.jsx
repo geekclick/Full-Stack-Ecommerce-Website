@@ -32,7 +32,9 @@ function Navbar() {
         </ul>
       </div>
       <div className="flex space-x-3 justify-between items-center">
-        <Button className="h-1/5">Login</Button>
+        <Link to={"/login"}>
+          <Button className="h-1/5">Login</Button>
+        </Link>
         <ul className="flex space-x-3 text-xl cursor-pointer justify-center items-center">
           <li>
             <LuSearch />

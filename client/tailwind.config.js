@@ -77,6 +77,7 @@ module.exports = {
       },
       backgroundImage: {
         "heroBG": 'url("/src/assets/heroBG.png")',
+        "loginBG": 'url("/src/assets/login.png")',
       },
       fontFamily: {
         "poppins": "Poppins,sans-serif",
