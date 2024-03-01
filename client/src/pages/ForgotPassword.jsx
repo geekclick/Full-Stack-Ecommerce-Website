@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 function ForgotPassword() {
   return (
     <section className="flex justify-left items-center">
-      <div className="w-[845px] flex-2 h-screen bg-green-200 bg-loginBG bg-contain"></div>
-      <div className="flex flex-1 flex-col space-y-4 justify-center items-start px-24">
+      <div className="w-[845px] md:w-[55%] flex-2 h-screen bg-green-200 bg-loginBG bg-contain hidden md:flex"></div>
+      <div className="flex flex-1 flex-col space-y-4 justify-center items-start xl:px-24 px-8 py-10">
         <Link
           to={"/"}
           className="flex justify-center items-center space-x-2 text-lg"
