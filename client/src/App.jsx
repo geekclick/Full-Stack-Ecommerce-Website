@@ -12,6 +12,7 @@ import MyAccount from "./pages/MyAccount";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
+import EnterOtp from "./pages/EnterOtp";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/enter-otp" element={<EnterOtp />} />
       <Route path="/profile" />
       <Route path="/settings" />
     </Routes>

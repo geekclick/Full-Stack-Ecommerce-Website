@@ -28,7 +28,9 @@ function Login() {
             <div>
               <Label>Password</Label>
               <Input type="password" placeholder="••••••••••••••••••" />
-              <small>Forgot Password?</small>
+              <Link to={"/forgot-password"}>
+                <small>Forgot Password?</small>
+              </Link>
             </div>
             <div className="flex justify-start space-x-3 items-center">
               <Checkbox className="" />
