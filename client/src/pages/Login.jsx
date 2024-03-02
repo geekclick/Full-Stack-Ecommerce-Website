@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function Login() {
   return (
-    <section className="flex justify-left ">
+    <section className="flex justify-left">
       <div className="w-[845px] md:w-[55%] flex-2 h-screen bg-green-200 bg-loginBG bg-contain hidden md:flex"></div>
       <div className="flex flex-1 flex-col space-y-4 justify-center items-center xl:px-24 px-6 ">
         <div className="flex justify-center items-center space-x-2 text-2xl md:p-0 p-8">

@@ -78,9 +78,12 @@ module.exports = {
       backgroundImage: {
         "heroBG": 'url("/src/assets/heroBG.png")',
         "loginBG": 'url("/src/assets/login.png")',
+        "heroImg": 'url("/src/assets/hero1.png")',
+        "callout1": 'url("/src/assets/callout1.png")',
+        "callout2": 'url("/src/assets/callout2.png")',
       },
       fontFamily: {
-        "poppins": "Poppins,sans-serif",
+        "jost": "Jost,sans-serif",
       },
     },
   },
