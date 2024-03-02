@@ -91,10 +91,10 @@ function Signup() {
 
 
   return (
-    <section className="flex justify-left items-center">
-      <div className="w-[845px] flex-2 h-screen bg-green-200 bg-loginBG bg-contain"></div>
-      <div className="flex flex-1 flex-col space-y-4 justify-center items-center px-32">
-        <div className="w-full">
+    <section className="flex justify-left">
+      <div className="w-[845px] md:w-[55%] flex-2 xl:h-screen bg-green-200 bg-loginBG bg-contain hidden md:flex"></div>
+      <div className="flex flex-1 flex-col space-y-4 justify-center items-center xl:px-32 px-8">
+        <div className="w-full py-8">
           <h1 className="font-bold text-2xl">Create New Account</h1>
           <p>Please enter details</p>
           <form
@@ -149,10 +149,10 @@ function Signup() {
               type="submit"
             >Sign up</Button>
           </form>
+          <p className="text-center">
+            Already Have account? <Link to={"/login"}>Login</Link>
+          </p>
         </div>
-        <p>
-          Already Have account? <Link to={"/login"}>Login</Link>
-        </p>
       </div>
     </section>
   );

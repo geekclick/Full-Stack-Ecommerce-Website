@@ -9,38 +9,32 @@ import { Link } from "react-router-dom";
 function ForgotPassword() {
   return (
     <section className="flex justify-left items-center">
-      <div className="w-[845px] flex-2 h-screen bg-green-200 bg-loginBG bg-contain"></div>
-      <div className="flex flex-1 flex-col space-y-4 justify-center items-center px-24">
-        <div className="flex justify-start items-center space-x-2 text-2xl">
+      <div className="w-[845px] md:w-[55%] flex-2 h-screen bg-green-200 bg-loginBG bg-contain hidden md:flex"></div>
+      <div className="flex flex-1 flex-col space-y-4 justify-center items-start xl:px-24 px-8 py-10">
+        <Link
+          to={"/"}
+          className="flex justify-center items-center space-x-2 text-lg"
+        >
           <FaAngleLeft />
           <h1>Back</h1>
-        </div>
-        <h1 className="font-bold text-xl">Welcome</h1>
-        <div className="w-full">
+        </Link>
+        <h1 className="font-bold text-xl">Forgot Password</h1>
+        <p>
+          Enter your registered email address. we&apos;ll send you a code to
+          reset your password.
+        </p>
+        <div className="w-full py-4">
           <form
             action=""
             className="flex justify-start space-y-6 w-full flex-col"
           >
-            <p>Please login here</p>
             <div>
               <Label>Email Address</Label>
               <Input type="email" placeholder="JhonMical@example.com" />
             </div>
-            <div>
-              <Label>Password</Label>
-              <Input type="password" placeholder="••••••••••••••••••" />
-              <small>Forgot Password?</small>
-            </div>
-            <div className="flex justify-start space-x-3 items-center">
-              <Checkbox className="" />
-              <Label>Remember me</Label>
-            </div>
-            <Button>Login</Button>
+            <Button>Send OTP</Button>
           </form>
         </div>
-        <p>
-          Don't Have Account? <Link to={"/signup"}>Signup</Link>
-        </p>
       </div>
     </section>
   );
