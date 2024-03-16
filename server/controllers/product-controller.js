@@ -129,4 +129,4 @@ const sortProductsByPrice = async (req, res) => {
   };
   
 
-module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice }
+module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice}
