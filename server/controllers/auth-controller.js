@@ -17,10 +17,6 @@ const register = async (req, res) => {
         const { fn, ln, email, password } = req.body;
         const userExits = await User.findOne({ email });
 
-        // hashing a password
-        // const salt = 10;
-        // const hash_password = await bcrypt.hash(password,salt);
-
         if (userExits) {
             res.status(400).json({ msg: "Email already exits" });
             console.log("User Already exits you idiot");
