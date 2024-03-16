@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import EnterOtp from "./pages/EnterOtp";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/payment" element={<Payment />} />
       <Route path="/order-summary" element={<OrderSummary />} />
       <Route path="/my-account" element={<MyAccount />} />
+      <Route path="/product/:id" element={<ProductPage />} />
       <Route path="/product" />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />

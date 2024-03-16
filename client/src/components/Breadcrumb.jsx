@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-function Breadcrumb() {
+function Breadcrumb({ className = "" }) {
   return (
-    <div>
+    <div className={className}>
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li className="inline-flex items-center">

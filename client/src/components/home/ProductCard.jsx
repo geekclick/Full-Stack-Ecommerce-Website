@@ -5,8 +5,11 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { FaRegHeart } from "react-icons/fa6";
 import Heart from "../Heart";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/store/reducers/cartSlice";
 
 function ProductCard({ cardImg = card1 }) {
+  const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const toggleHover = () => setIsHovered(!isHovered);
   return (
