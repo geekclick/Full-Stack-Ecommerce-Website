@@ -51,7 +51,7 @@ function Dashboard() {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Foods" total="2,450" rate="2.59%" levelUp>
+        <CardDataStats title="Total Products" total="2,450" rate="2.59%" levelUp>
           <svg
             className="fill-black dark:fill-white"
             width="22"

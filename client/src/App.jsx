@@ -17,7 +17,7 @@ import ProductPage from "./pages/ProductPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import UsersTable from "./components/AdminDashboard/UsersTable";
 import VendorsTable from "./components/AdminDashboard/VendorsTable";
-import FoodsTable from "./components/AdminDashboard/FoodsTable";
+import ProductsTable from "./components/AdminDashboard/ProductsTable";
 import Profile from "./components/AdminDashboard/Profile";
 import Settings from "./components/AdminDashboard/Settings";
 import LogIn from "./components/AdminDashboard/SignIn";
@@ -39,8 +39,7 @@ function App() {
       <Route path="/admin" element={<AdminDashboard />}>
         <Route path="/admin/" element={<Dashboard />} />
         <Route path="/admin/users" element={<UsersTable />} />
-        <Route path="/admin/vendors" element={<VendorsTable />} />
-        <Route path="/admin/foods" element={<FoodsTable />} />
+        <Route path="/admin/products" element={<ProductsTable />} />
         <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/settings" element={<Settings />} />
       </Route>
