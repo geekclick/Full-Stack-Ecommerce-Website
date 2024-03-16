@@ -29,7 +29,6 @@ const productSchema = new mongoose.Schema({
     ref: 'User',
   },
 
-  // Homemade Specific Attributes
   category: {
     type: String, enum: categoryEnum, required: true
   }, 

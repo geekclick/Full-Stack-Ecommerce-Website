@@ -99,6 +99,8 @@ const getProductByCategory = async (req, res) =>{
     }
 }
 
+//-------------------------- sort product by price ----------------------------//
+
 const sortProductsByPrice = async (req, res) => {
     try {
       const { sortBy } = req.body;
