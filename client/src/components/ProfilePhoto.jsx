@@ -13,8 +13,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsLoggedIn } from "@/store/reducers/authSlice";
 
 function ProfilePhoto() {
+  const dispatch = useDispatch();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -41,7 +44,10 @@ function ProfilePhoto() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          role="button"
+          onClick={() => dispatch(setIsLoggedIn(false))}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>

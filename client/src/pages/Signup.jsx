@@ -1,95 +1,43 @@
+import PasswordInput from "@/components/PasswordInput";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import React, { useEffect, useState } from "react";
-import { FaReact } from "react-icons/fa";
+import { handleSignUp } from "@/services/auth-services";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signupSchema } from "@/schemas/authSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 function Signup() {
-
-
-  const [formData, setFormData] = useState({
-    fn: "",
-    ln: "",
-    email: "",
-    password: "",
-  });
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [loginButton, setLoginButton] = useState(false);
-  // const [error, setError] = useState({
-  //   phn_error: false,
-  //   password_error: false,
-  // });
-  const handleSubmitButtonState = () => {
-    if (
-      formData.fn.trim() !== "" &&
-      formData.ln.trim() !== "" &&
-      formData.email.trim() !== "" &&
-      formData.password.trim() !== "" 
-    ) {
-      setLoginButton(true);
-    } else {
-      setLoginButton(false);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // console.log(formData.phn.length);
-    // if (formData.phn.length === 10) {
-    //   setError({ ...error, phn_error: false });
-    // } else {
-    //   console.log("baby");
-    //   setError({ ...error, phn_error: true });
-    // }
-
-    // if (formData.password === formData.cpassword) {
-    //   setError({ ...error, password_error: false });
-    // } else setError({ ...error, password_error: true });
-
-    // console.log("data is submited safely");
-
-    // Api connection 
-    try {
-
-      const response = await fetch('http://localhost:5000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (response.ok) {
-        setFormData({
-          fn: "",
-          ln: "",
-          email: "",
-          password: ""
-        });
-        navigate('/login');
-      }
-      console.log(response);
-
-    } catch (error) {
-      console.log("Api coonection error", error);
-    }
-
-  };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    // console.log(formData.phn.length);
-  };
-  useEffect(() => {
-    handleSubmitButtonState();
-  }, [formData]);
-
-
-
+  const form = useForm({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+  const {
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = form;
+  function onSubmit(values) {
+    handleSignUp(values, dispatch, navigate, setError);
+  }
   return (
     <section className="flex justify-left">
       <div className="w-[845px] md:w-[55%] flex-2 xl:h-screen bg-green-200 bg-loginBG bg-contain hidden md:flex"></div>
@@ -97,58 +45,83 @@ function Signup() {
         <div className="w-full py-8">
           <h1 className="font-bold text-2xl">Create New Account</h1>
           <p>Please enter details</p>
-          <form
-            action=""
-            className="flex justify-start space-y-6 w-full flex-col mt-6"
-            onSubmit={handleSubmit}
-          >
-            <div>
-              <Label>First Name</Label>
-              <Input type="text "
-                placeholder="Jhon"
-                name="fn"
-                value={formData.fn}
-                onChange={handleChange}
+          <Form {...form}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex justify-start space-y-6 w-full flex-col mt-6"
+            >
+              <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your full name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div>
-              <Label>Last Name</Label>
-              <Input type="text "
-                placeholder="Mical"
-                name="ln"
-                value={formData.ln}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label>Email Address</Label>
-              <Input type="email"
-                placeholder="JhonMical@example.com"
+              <FormField
+                control={form.control}
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div>
-              <Label>Password</Label>
-              <Input type="password"
-                placeholder="••••••••••••••••••"
-                value={formData.password}
+              <FormField
+                control={form.control}
                 name="password"
-                onChange={handleChange}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput
+                        placeholder="Create a password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-
-            </div>
-            <div className="flex justify-start space-x-3 items-center">
-              <Checkbox className="" />
-              <Label>Remember me</Label>
-            </div>
-            <Button
-              variant={`${loginButton ? "" : "disabled"}`}
-              disabled={!loginButton}
-              type="submit"
-            >Sign up</Button>
-          </form>
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput
+                        placeholder="Confirm your password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                className="w-full bg-black text-white"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Loading..." : "Sign up"}
+              </Button>
+              {errors.root && (
+                <p className=" text-red-500 text-center mt-0">
+                  {errors.root.message}
+                </p>
+              )}
+            </form>
+          </Form>
           <p className="text-center">
             Already Have account? <Link to={"/login"}>Login</Link>
           </p>
@@ -159,3 +132,61 @@ function Signup() {
 }
 
 export default Signup;
+
+// <form
+//   action=""
+//   className="flex justify-start space-y-6 w-full flex-col mt-6"
+//   onSubmit={handleSubmit}
+// >
+//   <div>
+//     <Label>First Name</Label>
+//     <Input
+//       type="text "
+//       placeholder="Jhon"
+//       name="fn"
+//       value={formData.fn}
+//       onChange={handleChange}
+//     />
+//   </div>
+//   <div>
+//     <Label>Last Name</Label>
+//     <Input
+//       type="text "
+//       placeholder="Mical"
+//       name="ln"
+//       value={formData.ln}
+//       onChange={handleChange}
+//     />
+//   </div>
+//   <div>
+//     <Label>Email Address</Label>
+//     <Input
+//       type="email"
+//       placeholder="JhonMical@example.com"
+//       name="email"
+//       value={formData.email}
+//       onChange={handleChange}
+//     />
+//   </div>
+//   <div>
+//     <Label>Password</Label>
+//     <Input
+//       type="password"
+//       placeholder="••••••••••••••••••"
+//       value={formData.password}
+//       name="password"
+//       onChange={handleChange}
+//     />
+//   </div>
+//   <div className="flex justify-start space-x-3 items-center">
+//     <Checkbox className="" />
+//     <Label>Remember me</Label>
+//   </div>
+//   <Button
+//     variant={`${loginButton ? "" : "disabled"}`}
+//     disabled={!loginButton}
+//     type="submit"
+//   >
+//     Sign up
+//   </Button>
+// </form>;

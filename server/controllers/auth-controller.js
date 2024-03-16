@@ -16,7 +16,7 @@ const home = (req,res)=>{
 const register =async (req,res)=>{
     try {
         
-        const {fn,ln,email,password} = req.body;
+        const {fullName,email,password} = req.body;
         const userExits = await User.findOne({email});
 
         // hashing a password
@@ -29,7 +29,7 @@ const register =async (req,res)=>{
             return;
         }
 
-        const data=await User.create({fn,ln,email,password});
+        const data=await User.create({fullName,email,password});
         // res.status(200).json({msg:"user Created Succesfully"});
         res.status(201).json({
             msg:"User Created Succesfully",

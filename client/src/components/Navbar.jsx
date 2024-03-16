@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { LuSearch, LuHeart, LuShoppingCart } from "react-icons/lu";
-
+import { useDispatch, useSelector } from "react-redux";
 import {
   Popover,
   PopoverContent,
@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/popover";
 import MiniCart from "./MiniCart";
 import ProfilePhoto from "./ProfilePhoto";
+import SearchBar from "./home/SearchBar";
 
 function Navbar() {
+  const isLoggedIn = useSelector((state) => state.authSlice.isLoggedIn);
+  console.log(isLoggedIn);
   return (
     <nav className="fixed z-50 flex justify-between items-center p-4 w-full h-[52px] bg-[hsl(78,80%,88%)]">
       <div className="flex space-x-4 items-center h-full">
@@ -32,10 +35,8 @@ function Navbar() {
         </ul>
       </div>
       <div className="flex space-x-3 justify-between items-center">
-        <Link to={"/login"}>
-          <Button className="h-1/5">Login</Button>
-        </Link>
         <ul className="flex space-x-3 text-xl cursor-pointer justify-center items-center">
+          <li>{/* <SearchBar /> */}</li>
           <li>
             <LuSearch />
           </li>
@@ -63,7 +64,13 @@ function Navbar() {
             </Popover>
           </li>
           <li>
-            <ProfilePhoto />
+            {isLoggedIn ? (
+              <ProfilePhoto />
+            ) : (
+              <Link to={"/login"}>
+                <Button className="h-1/5">Login</Button>
+              </Link>
+            )}
           </li>
         </ul>
       </div>

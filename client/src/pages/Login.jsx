@@ -1,63 +1,44 @@
+import PasswordInput from "@/components/PasswordInput";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FaReact } from "react-icons/fa";
+import { handleLogin } from "@/services/auth-services";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
-import PasswordInput from "@/components/ui/passwordInput";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { loginSchema } from "@/schemas/authSchema";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { FaReact } from "react-icons/fa6";
 
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loginButton, setLoginButton] = useState(false);
+  const form = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.email !== "" && formData.password !== "") {
-      setLoginButton(true);
-    } else {
-      setLoginButton(false);
-    }
+  const {
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = form;
 
-    try {
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setFormData({
-          email: "",
-          password: "",
-        });
-        navigate("/");
-        console.log("Login Succesfully");
-        alert("Login Succesfully");
-      }
-      console.log(response);
-    } catch (error) {
-      console.log("Api coonection error", error);
-    }
-  };
-
-  const handleChange = async (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setFormData({ ...formData, [name]: value });
-
-    if (formData.email !== "" && formData.password !== "") {
-      setLoginButton(true);
-    } else {
-      setLoginButton(false);
-    }
-  };
-
+  function onSubmit(values) {
+    handleLogin(values, dispatch, navigate, setError);
+  }
   return (
     <section className="flex justify-left">
       <div className="w-[845px] md:w-[55%] flex-2 h-screen bg-green-200 bg-loginBG bg-contain hidden md:flex"></div>
@@ -68,41 +49,56 @@ function Login() {
         </div>
         <h1 className="font-bold text-2xl">Welcome</h1>
         <div className="w-full">
-          <form
-            onSubmit={handleSubmit}
-            className="flex justify-start space-y-6 w-full flex-col"
-          >
-            <p>Please login here</p>
-            <div>
-              <Label>Email Address</Label>
-              <Input
-                type="email"
-                placeholder="JhonMical@example.com"
-                name="email"
-                value={formData.email}
-                onChange={(e) => handleChange(e)}
-              />
-            </div>
-            <div>
-              <Label>Password</Label>
-              <PasswordInput
-                value={formData.password}
-                onChange={(e) => handleChange(e)}
-              />
-              <small>Forgot Password?</small>
-            </div>
-            <div className="flex justify-start space-x-3 items-center">
-              <Checkbox className="" />
-              <Label>Remember me</Label>
-            </div>
-            <Button
-              className="w-full"
-              variant={`${loginButton ? "" : "disabled"}`}
-              disabled={!loginButton}
+          <Form {...form}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex justify-start space-y-6 w-full flex-col"
+              a
             >
-              Log in
-            </Button>
-          </form>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput
+                        placeholder="Enter your password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <small className="text-black">Forgot password?</small>
+              <Button
+                type="submit"
+                className="w-full bg-black text-white"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Loading..." : "Log in"}
+              </Button>
+              {errors.root && (
+                <p className=" text-red-500 text-center mt-0">
+                  {errors.root.message}
+                </p>
+              )}
+            </form>
+          </Form>
         </div>
         <p>
           Don't Have Account? <Link to={"/signup"}>Signup</Link>
