@@ -99,4 +99,34 @@ const getProductByCategory = async (req, res) =>{
     }
 }
 
-module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory}
+const sortProductsByPrice = async (req, res) => {
+    try {
+      const { sortBy } = req.body;
+      let sortCriteria = {};
+  
+      // Check the sortBy parameter
+      if (sortBy === 'highToLow') {
+        sortCriteria = { price: -1 }; 
+        console.log(sortCriteria)// Sort high to low
+      } else if (sortBy === 'lowToHigh') {
+        sortCriteria = { price: 1 }; // Sort low to high
+        console.log(sortCriteria)
+      } else {
+        return res.status(400).json({ message: 'Invalid sorting criteria.' });
+      }
+  
+      const products = await product.find().sort(sortCriteria).select('url name price description');
+  
+      if (products.length === 0) {
+        return res.status(404).json({ message: 'No items available to sort.' });
+      }
+  
+      res.json(products);
+    } catch (error) {
+      console.error("Error in sortProductsByPrice:", error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
+  
+
+module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice }
