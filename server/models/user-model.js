@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 require("dotenv").config();
 
 
@@ -14,6 +15,9 @@ const userSchema = new mongoose.Schema({
     email:{
         type:String,
         require:true
+    },
+    otp:{
+        type:String
     },
     // phone:{
     //     type:String,
@@ -29,7 +33,8 @@ const userSchema = new mongoose.Schema({
     // },
 });
 
-// Hashing a password using Bcryptjs 
+//------------------------ Hashing a password using Bcryptjs -----------------------//
+
 userSchema.pre("save",async function(next){
     // console.log("pre method",this);
     const user = this;
@@ -51,7 +56,8 @@ userSchema.pre("save",async function(next){
      
 })
 
-// JWT Token
+//------------------------ JWT token generator -----------------------//
+
 userSchema.methods.generateToken=function(){
     try {
         return jwt.sign({
@@ -60,8 +66,6 @@ userSchema.methods.generateToken=function(){
             // isAdmin:this.isAdmin
         },
         "jhajhfajbfjbh",
-        // process.env.JWT_KEY,
-        // ${process.env.JWT_SECRET_KEY}
         {
             expiresIn:"30d"
         }
@@ -73,8 +77,8 @@ userSchema.methods.generateToken=function(){
     }
 }
 
+//------------------------ Password matching -----------------------//
 
-// Password matching
 userSchema.methods.passwordChecker=async function(newpass){
     try {
         return  await bcrypt.compare(newpass,this.password);
@@ -83,6 +87,39 @@ userSchema.methods.passwordChecker=async function(newpass){
 
      catch (error) {
         console.log(error,"Indicating password Checker")
+    }
+}
+
+//------------------------ Send OTP -----------------------//
+
+userSchema.methods.sendOTP = async function() {
+    try {
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        this.otp = otp;
+        await this.save();
+
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'derixkale@gmail.com',  // Use your actual Gmail address
+              pass: 'wvgisepyvcscefjo'  // Use the app password, not your regular password
+            }
+          });
+          
+
+        const mailOptions = {
+            
+            from: 'derixkale@gmail.com',
+            to: this.email,
+            subject: 'OTP for Password Reset',
+            text: `Your OTP for password reset is: ${otp}`
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to send OTP');
     }
 }
   
