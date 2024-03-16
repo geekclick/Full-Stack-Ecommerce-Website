@@ -20,11 +20,7 @@ const userSchema = new mongoose.Schema({
     otp:{
         type:String,
         require:false
-    },
-    password:{
-        type:String,
-        require:true
-    },
+    }
 });
 
 //------------------------ Hashing a password using Bcryptjs -----------------------//
