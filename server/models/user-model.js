@@ -17,20 +17,13 @@ const userSchema = new mongoose.Schema({
         require:true
     },
     otp:{
-        type:String
+        type:String,
+        require:false
     },
-    // phone:{
-    //     type:String,
-    //     require:true
-    // },
     password:{
         type:String,
         require:true
     },
-    // isAdmin:{
-    //     type:Boolean,
-    //     default:false 
-    // },
 });
 
 //------------------------ Hashing a password using Bcryptjs -----------------------//

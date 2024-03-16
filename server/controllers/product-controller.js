@@ -5,7 +5,7 @@ const addProduct = async (req,res) => {
 
     try{
 
-        const { name, description, price, images, seller, category, materials, isCustomizable, customizationDetails, processingTime } = req.body;
+        const { name, description, price, images, seller, category} = req.body;
 
         const productExist = await product.findOne({name});
         console.log(productExist);
@@ -13,7 +13,7 @@ const addProduct = async (req,res) => {
             return res.status(400).json({msg: "product already exist"});
         }
 
-        await product.create({name, description, price, seller, category});
+        await product.create({name, description, price, seller, category,images});
 
         res.status(200).json({msg: "product created successfully"});
 
@@ -73,4 +73,30 @@ const getProduct = async (req, res) =>{
     }
 }
 
-module.exports = {addProduct, deleteProduct, updateProduct, getProduct}
+//-------------------------- Get Product By Categories ----------------------------//
+
+const getProductByCategory = async (req, res) =>{
+    try {
+        const { categories } = req.body;
+
+        //-------------------------Category Exits ---------------------//
+        const categoryExists = await product.findOne({ category: { $in: categories } });
+        if (!categoryExists) {
+        return res.status(404).json({ message: 'Category not found.' });
+        }
+
+        //-------------------------Product Exits ---------------------//
+        const products = await product.find({ category: { $in: categories } }, 'url name price description');
+    
+        if (products.length === 0) {
+          return res.status(404).json({ message: 'No items available in the provided categories.' });
+        }
+    
+        res.json(products);
+      } catch (error) {
+        console.error("Error in getProductByCategory:", error);
+        res.status(500).json({ msg: "Internal Server Error" });
+    }
+}
+
+module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory}

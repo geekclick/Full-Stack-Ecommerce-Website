@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const categoryEnum = ['Electronics', 'Clothing', 'Books', 'Home & Kitchen']
 const productSchema = new mongoose.Schema({
 
   name: {
@@ -19,17 +19,11 @@ const productSchema = new mongoose.Schema({
     required: false,
   },
 
-  // Inventory and Availability
-//   stock: {
-//     type: Number,
-//     default: 0,
-//   },
   available: {
     type: Boolean,
     default: false,
   },
-
-  // Seller Information 
+ 
   seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -37,8 +31,7 @@ const productSchema = new mongoose.Schema({
 
   // Homemade Specific Attributes
   category: {
-    type: String,
-    required: true,
+    type: String, enum: categoryEnum, required: true
   }, 
 });
 
