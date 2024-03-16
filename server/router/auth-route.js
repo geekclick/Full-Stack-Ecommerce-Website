@@ -8,6 +8,7 @@ const forgotcontroller = require('../controllers/forgot-controller');
 router.route('/').get(authcontroller.home);
 router.route('/register').post(authcontroller.register);
 router.route('/login').post(authcontroller.login);
+router.route('/verifyRegisterOTP').post(authcontroller.verifyOTP);
 
 
 //------------------------ Product Route -----------------------//
