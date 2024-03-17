@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const categoryEnum = ['Electronics', 'Clothing', 'Books', 'Home & Kitchen']
+const categoryEnum = ['Jewelry Craft', 'Leather Craft', 'Marble & Stone Craft', 'Metal Craft' ,'Paintings & Art']
 const productSchema = new mongoose.Schema({
 
   name: {
