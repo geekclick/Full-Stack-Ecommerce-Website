@@ -137,5 +137,6 @@ module.exports = {
   home,
   register,
   login,
-  verifyOTP
+  verifyOTP,
+  getAllUser
 }; 
