@@ -7,8 +7,9 @@ const addProduct = async (req,res) => {
 
         const { name, description, price, images, category} = req.body;
 
-        const productExist = await product.findOne({name});
+        const productExist = await product.findOne({cleanedName});
         console.log(productExist);
+
         if(productExist){
             return res.status(400).json({msg: "product already exist"});
         }
@@ -99,6 +100,33 @@ const getProductByCategory = async (req, res) =>{
     }
 };
 
+//-------------------------- Get Product By Name----------------------------//
+
+const getProductByName = async (req, res) =>{
+  const { name } = req.body;
+    try {
+        //-------------------------Product Exists ---------------------//
+        const productExists = await product.findOne({ name:name});
+        
+        if (!productExists) {
+        return res.status(404).json({ message: 'Product not found.' });
+        }
+
+        //-------------------------Send the product Exists ---------------------//
+        
+        const products = await product.find({name:name }, 'url name price description');
+    
+        if (products.length === 0) {
+          return res.status(404).json({ message: 'No items available in the provided categories.' });
+        }
+    
+        res.json(products);
+      } catch (error) {
+        console.error("Error in getProductByName:", error);
+        res.status(500).json({ msg: "Internal Server Error" });
+    }
+}
+
 //-------------------------- sort product by price ----------------------------//
 
 const sortProductsByPrice = async (req, res) => {
@@ -131,5 +159,4 @@ const sortProductsByPrice = async (req, res) => {
 };
   
 
-module.exports = { addProduct, deleteProduct, updateProduct, getProduct, 
-                   getProductByCategory, sortProductsByPrice }
+module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice,getProductByName}
