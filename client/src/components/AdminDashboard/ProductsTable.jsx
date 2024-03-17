@@ -1,9 +1,6 @@
 import ProductModal from "./ProductModal";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { getProductList } from "@/services/product-services";
+import { Link } from "react-router-dom";
 
 const productData = [
   {
@@ -73,14 +70,7 @@ const productData = [
 ];
 
 const ProductsTable = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const productList = useSelector((state) => state.productSlice.productList);
-
-  useEffect(() => {
-    getProductList(dispatch, navigate);
-  }, [dispatch]);
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="py-6 px-4 md:px-6 xl:px-7.5 flex justify-between items-center">

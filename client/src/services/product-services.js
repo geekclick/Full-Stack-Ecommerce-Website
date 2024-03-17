@@ -30,11 +30,12 @@ export const addProduct = async (productInfo, dispatch, navigate, setError) => {
 
 
 export const getProductList = async (dispatch, navigate) => {
+    const path = location.pathname
     try {
         const response = await axios.get("/api/getProduct");
         if (response) {
             dispatch(setProductList(response.data))
-            navigate("/admin/products");
+            navigate(path);
             console.log("Success");
         }
     } catch (error) {

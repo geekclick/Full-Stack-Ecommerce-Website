@@ -16,14 +16,23 @@ import EnterOtp from "./pages/EnterOtp";
 import ProductPage from "./pages/ProductPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import UsersTable from "./components/AdminDashboard/UsersTable";
-import VendorsTable from "./components/AdminDashboard/VendorsTable";
 import ProductsTable from "./components/AdminDashboard/ProductsTable";
 import Profile from "./components/AdminDashboard/Profile";
 import Settings from "./components/AdminDashboard/Settings";
 import LogIn from "./components/AdminDashboard/SignIn";
 import Dashboard from "./components/AdminDashboard/Dashboard";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getProductList } from "@/services/product-services";
 
 function App() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getProductList(dispatch, navigate);
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/" element={<Home />} />

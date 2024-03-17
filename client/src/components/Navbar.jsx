@@ -13,8 +13,8 @@ import ProfilePhoto from "./ProfilePhoto";
 import SearchBar from "./home/SearchBar";
 
 function Navbar() {
+  const cart = useSelector((state) => state.cartSlice.cart);
   const isLoggedIn = useSelector((state) => state.authSlice.isLoggedIn);
-  console.log(isLoggedIn);
   return (
     <nav className="fixed z-50 flex justify-between items-center p-4 w-full h-[52px] bg-[hsl(78,80%,88%)]">
       <div className="flex space-x-4 items-center h-full">
@@ -54,7 +54,7 @@ function Navbar() {
                 <>
                   <LuShoppingCart />
                   <Badge className="absolute -top-1 -right-1 w-3 h-3 p-1 m-auto aspect-square bg-secondary text-white text-[8px]">
-                    1
+                    {cart.length || 0}
                   </Badge>
                 </>
               </PopoverTrigger>
