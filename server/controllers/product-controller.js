@@ -53,7 +53,7 @@ const updateProduct = async (req, res) => {
     } catch (error) {
         res.status(500).json({msg:"Internal server error ",error});
     }
-}
+};
 
 //-------------------------- Get Product ----------------------------//
 
@@ -71,7 +71,7 @@ const getProduct = async (req, res) =>{
         console.error("Error in getProduct:", error);
         res.status(500).json({ msg: "Internal Server Error" });
     }
-}
+};
 
 //-------------------------- Get Product By Categories ----------------------------//
 
@@ -97,7 +97,7 @@ const getProductByCategory = async (req, res) =>{
         console.error("Error in getProductByCategory:", error);
         res.status(500).json({ msg: "Internal Server Error" });
     }
-}
+};
 
 //-------------------------- sort product by price ----------------------------//
 
@@ -128,7 +128,8 @@ const sortProductsByPrice = async (req, res) => {
       console.error("Error in sortProductsByPrice:", error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  };
+};
   
 
-module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice}
+module.exports = { addProduct, deleteProduct, updateProduct, getProduct, 
+                   getProductByCategory, sortProductsByPrice }
