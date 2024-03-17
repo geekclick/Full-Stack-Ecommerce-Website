@@ -48,7 +48,6 @@ const register = async (req, res) => {
   }
 }
 
-// const signup = async (req, res) => {
 //     const { fullName, ln, email, password } = req.body;
 
 //     try {
@@ -146,10 +145,24 @@ const login = async (req, res) => {
   }
 }
 
+const getAllUser = async(req,res)=>{
+  try {
+    const user = await User.find();
+    console.log("Products from get products : ",user);
+
+    if(!user || user.length===0){
+        res.status(404).json({msg:"No products found"});
+    }
+
+    return res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json({msg: "Internal Server Error"});
+  }
+}
+
 module.exports = {
   home,
   register,
-  // signup,
   login,
   verifyOTP
 }; 

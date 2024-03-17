@@ -8,5 +8,6 @@ router.route('/updateProduct').post(productForm.updateProduct);
 router.route('/getProduct').get(productForm.getProduct);
 router.route('/getProductByCategory').post(productForm.getProductByCategory);
 router.route('/sortProductsByPrice').post(productForm.sortProductsByPrice);
+router.route('/getProductByName').post(productForm.getProductByName);
 
 module.exports = router;
