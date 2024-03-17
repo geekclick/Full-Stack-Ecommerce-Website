@@ -9,7 +9,7 @@ router.route('/').get(authcontroller.home);
 router.route('/register').post(authcontroller.register);
 router.route('/login').post(authcontroller.login);
 router.route('/verifyRegisterOTP').post(authcontroller.verifyOTP);
-router.route('/getAllUser').post(authcontroller.getAllUser);
+router.route('/getAllUser').get(authcontroller.getAllUser);
 
 
 //------------------------ Product Route -----------------------//
