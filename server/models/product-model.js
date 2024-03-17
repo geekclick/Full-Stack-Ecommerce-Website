@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const categoryEnum = ['Electronics', 'Clothing', 'Books', 'Home & Kitchen']
+const categoryEnum = ['Paintings & Art', 'Marble & Stone Craft', 'Metal Craft', 'Home & Kitchen', 'Jewelry Craft']
 const productSchema = new mongoose.Schema({
 
   name: {
@@ -23,15 +23,10 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
- 
-  seller: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
 
   category: {
     type: String, enum: categoryEnum, required: true
-  }, 
+  },
 });
 
 module.exports = mongoose.model('Product', productSchema);

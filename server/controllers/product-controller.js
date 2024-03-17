@@ -5,7 +5,7 @@ const addProduct = async (req,res) => {
 
     try{
 
-        const { name, description, price, images, seller, category} = req.body;
+        const { name, description, price, images, category} = req.body;
 
         const productExist = await product.findOne({name});
         console.log(productExist);
@@ -13,7 +13,7 @@ const addProduct = async (req,res) => {
             return res.status(400).json({msg: "product already exist"});
         }
 
-        await product.create({name, description, price, seller, category,images});
+        await product.create({name, description, price, category,images});
 
         res.status(200).json({msg: "product created successfully"});
 
