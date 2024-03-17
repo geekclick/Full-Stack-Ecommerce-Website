@@ -9,7 +9,7 @@ const home = (req, res) => {
   } catch (error) {
     console.log(error)
   }
-}
+};
 
 //------------------------ Register -----------------------//
 const register = async (req, res) => {
@@ -46,34 +46,7 @@ const register = async (req, res) => {
     console.log(error, "Internal Server Error");
     return res.status(500).json({ msg: "Internal Server Error" });
   }
-}
-
-//     const { fullName, ln, email, password } = req.body;
-
-//     try {
-//       // Check if user with email already exists (optional)
-//       const existingUser = await User.findOne({ email });
-//       if (existingUser) {
-//         return res.status(400).json({ msg: "Email already exists" });
-//       }
-
-//       // Create a new user with unverified status
-//       const user = new User({ fullName, ln, email, password, isVerified: false });
-
-//       // Hash password before saving
-//       user.password = await bcrypt.hash(user.password, 10);
-
-//       // Send OTP for verification using registerOTP method
-//       await user.registerOTP();
-
-//       // Redirect to verification page (optional) - Adjust URL as needed
-//       res.status(302).redirect('/verify-email');  // Change '/verify-email' to your actual URL
-
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ msg: "Internal Server Error" });
-//     }
-//   };
+};
 
 //------------------------ Verify OTP -----------------------//
 
@@ -143,7 +116,7 @@ const login = async (req, res) => {
     console.log(error);
     res.status(500).json({ msg: "Internal Server Error" });
   }
-}
+};
 
 const getAllUser = async(req,res)=>{
   try {

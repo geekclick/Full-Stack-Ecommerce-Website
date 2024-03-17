@@ -1,5 +1,4 @@
 const User = require('../models/user-model');
-// const user = new User();
 const nodemailer = require('nodemailer');
 
 

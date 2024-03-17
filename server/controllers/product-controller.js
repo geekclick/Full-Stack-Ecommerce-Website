@@ -5,9 +5,7 @@ const addProduct = async (req,res) => {
 
     try{
 
-        const {name, description, price, images,category} = req.body;
-        const cleanedName = name.replace(/\t/g, '').toLowerCase();
-        console.log(cleanedName);
+        const { name, description, price, images, category} = req.body;
 
         const productExist = await product.findOne({cleanedName});
         console.log(productExist);
@@ -15,7 +13,8 @@ const addProduct = async (req,res) => {
         if(productExist){
             return res.status(400).json({msg: "product already exist"});
         }
-        await product.create({cleanedName, description, price,category,images});
+
+        await product.create({name, description, price, category,images});
 
         res.status(200).json({msg: "product created successfully"});
 
@@ -55,7 +54,7 @@ const updateProduct = async (req, res) => {
     } catch (error) {
         res.status(500).json({msg:"Internal server error ",error});
     }
-}
+};
 
 //-------------------------- Get Product ----------------------------//
 
@@ -73,7 +72,7 @@ const getProduct = async (req, res) =>{
         console.error("Error in getProduct:", error);
         res.status(500).json({ msg: "Internal Server Error" });
     }
-}
+};
 
 //-------------------------- Get Product By Categories ----------------------------//
 
@@ -99,7 +98,7 @@ const getProductByCategory = async (req, res) =>{
         console.error("Error in getProductByCategory:", error);
         res.status(500).json({ msg: "Internal Server Error" });
     }
-}
+};
 
 //-------------------------- Get Product By Name----------------------------//
 
@@ -157,7 +156,7 @@ const sortProductsByPrice = async (req, res) => {
       console.error("Error in sortProductsByPrice:", error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  };
+};
   
 
 module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice,getProductByName}

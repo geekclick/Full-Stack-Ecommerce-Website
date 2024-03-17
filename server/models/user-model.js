@@ -85,7 +85,7 @@ userSchema.methods.passwordChecker=async function(newpass){
     }
 }
 
-//------------------------ Send OTP -----------------------//
+//------------------------ Send OTP for Forgot password-----------------------//
 
 userSchema.methods.sendOTP = async function() {
     try {
@@ -119,7 +119,7 @@ userSchema.methods.sendOTP = async function() {
     }
 }
 
-
+//------------------------ Send OTP for registration verification -----------------------//
 
 userSchema.methods.registerOTP = async function() {
     try {

@@ -1,4 +1,9 @@
-import { Link } from "react-router-dom";
+import ProductModal from "./ProductModal";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getProductList } from "@/services/product-services";
 
 const productData = [
   {
@@ -68,23 +73,33 @@ const productData = [
 ];
 
 const ProductsTable = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const productList = useSelector((state) => state.productSlice.productList);
+
+  useEffect(() => {
+    getProductList(dispatch, navigate);
+  }, [dispatch]);
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="py-6 px-4 md:px-6 xl:px-7.5 flex justify-between items-center">
         <h4 className="text-xl font-semibold text-black dark:text-white">
           All Products
         </h4>
-        <Link
-          to="#"
-          className="inline-flex items-center justify-center rounded-md border border-black mb-6 py-2.5 px-10 text-center font-medium text-black hover:bg-opacity-90 lg:px-8 xl:px-10"
-        >
-          Add
-        </Link>
+        <ProductModal>
+          <Link
+            to="#"
+            className="inline-flex items-center justify-center rounded-md border dark:text-white dark:border-white border-black mb-6 py-2.5 px-10 text-center font-medium text-black hover:bg-opacity-90 lg:px-8 xl:px-10"
+          >
+            Add
+          </Link>
+        </ProductModal>
       </div>
 
       <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
         <div className="col-span-2 flex items-center">
-          <p className="font-medium">Food Name</p>
+          <p className="font-medium">Product Name</p>
         </div>
         <div className="col-span-2 hidden items-center sm:flex">
           <p className="font-medium">Category</p>
@@ -93,17 +108,17 @@ const ProductsTable = () => {
           <p className="font-medium">Price</p>
         </div>
         <div className="col-span-1 flex items-center">
-          <p className="font-medium">Shop</p>
+          <p className="font-medium">Available</p>
         </div>
-        <div className="col-span-1 flex items-center">
+        {/* <div className="col-span-1 flex items-center">
           <p className="font-medium">Reviews</p>
-        </div>
+        </div> */}
         <div className="col-span-1 flex items-center">
           <p className="font-medium">Actions</p>
         </div>
       </div>
 
-      {productData.map((product, key) => (
+      {productList.map((product, key) => (
         <div
           className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
           key={key}
@@ -111,7 +126,7 @@ const ProductsTable = () => {
           <div className="col-span-2 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
-                <img src={product.image} alt="Image" />
+                <img src={product.image || ""} alt="Image" />
               </div>
               <p className="text-sm text-black dark:text-white">
                 {product.name}
@@ -131,9 +146,9 @@ const ProductsTable = () => {
           <div className="col-span-1 flex items-center">
             <p className="text-sm text-black dark:text-white">{product.sold}</p>
           </div>
-          <div className="col-span-1 flex items-center">
+          {/* <div className="col-span-1 flex items-center">
             <p className="text-sm text-meta-3">{product.profit}⭐</p>
-          </div>
+          </div> */}
           <div className="flex items-center space-x-3.5">
             <button className="hover:text-black">
               <svg
