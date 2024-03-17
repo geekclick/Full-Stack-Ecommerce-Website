@@ -1,4 +1,4 @@
-const User = require('../models/user-model')
+const User = require('../models/user-model');
 const nodemailer = require('nodemailer');
 
 
@@ -6,13 +6,21 @@ const nodemailer = require('nodemailer');
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
     try {
+     
+
         const user = await User.findOne({ email });
-        console.log("User from forgot",user);
+
+        // If user doesn't exist, return error
         if (!user) {
-            return res.status(404).json({ msg: "User not found" });
+            return res.status(404).json({ success: false, message: 'User not found.' });
         }
 
-        await user.sendOTP();
+        // Call sendOTP method on user instance to generate and save OTP
+        const otp = await user.sendOTP()
+        console.log(otp);
+        res.cookie('otp',otp,{maxAge:900000, httpOnly:true});
+
+        res.cookie('userEmail', email, { maxAge: 900000, httpOnly: true });
 
         res.status(200).json({ msg: "OTP sent to your email" });
     } catch (error) {
@@ -24,16 +32,25 @@ const forgotPassword = async (req, res) => {
 //------------------------ Verify OTP-----------------------//
 
 const verifyOtp = async (req, res) => {
-    const { email, otp } = req.body;
+    const { otp } = req.body;
 
     try {
         // Retrieve user by email
-        const user = await User.findOne({ email });
+        // const user = await User.findOne({ email });
+        const userEmail = req.cookies.userEmail;
+        const newotp =req.cookies.otp;
+        
+        if (!userEmail) {
+            return res.status(400).json({ success: false, message: 'Email not found in cookie.' });
+          }
 
         // Check if OTP matches
-        if (user && user.otp === otp) {
+        if (newotp === otp) {
+            console.log("OTP from valid otp",newotp);
             return res.json({ success: true, message: "OTP verified." });
         } else {
+            console.log("User email from invalid otp",newotp);
+            console.log("OTP from invalid otp",otp);
             return res.status(400).json({ success: false, message: "Invalid OTP." });
         }
     } catch (error) {
