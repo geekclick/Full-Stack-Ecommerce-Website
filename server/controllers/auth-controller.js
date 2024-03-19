@@ -28,7 +28,7 @@ const register = async (req, res) => {
     const data = await User.create({ fullName,email,password });
 
     // Generating a new otp//
-    const otp = await data.sendOTP()
+    const otp = await data.registerOTP()
     console.log(otp);
 
     // Storing the otp and email in cookie
