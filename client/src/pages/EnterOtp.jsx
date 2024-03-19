@@ -1,22 +1,52 @@
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FaAngleLeft, FaReact } from "react-icons/fa";
-import { MdOutlineArrowCircleRight } from "react-icons/md";
+import { FaAngleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { otpSchema } from "@/schemas/authSchema";
+import { verifyOtp } from "@/services/auth-services";
+
 function EnterOtp() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const form = useForm({
+    resolver: zodResolver(otpSchema),
+    defaultValues: {
+      otp: "",
+    },
+  });
+
+  const {
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = form;
+
+  function onSubmit(values) {
+    verifyOtp(values, dispatch, navigate, setError);
+  }
   return (
     <section className="flex justify-left">
       <div className="w-[845px] flex-2 h-screen bg-green-200 bg-loginBG bg-contain hidden lg:flex"></div>
@@ -29,46 +59,48 @@ function EnterOtp() {
           <h1>Back</h1>
         </Link>
         <h1 className="font-bold text-xl">Enter OTP</h1>
-        <p>
-          We have share a code of your registered email address
-          JhonMical@example.com
-        </p>
+        <p>We have shared a code on your registered email address</p>
         <div className="w-full py-4">
-          <form
-            action=""
-            className="flex justify-start space-y-6 w-full flex-col"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <div className="flex space-x-10 justify-around items-center">
-              <Input
-                type="number"
-                className="text-xl font-bold aspect-square"
+          <Form {...form}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex justify-start space-y-6 w-full flex-col"
+              a
+            >
+              <FormField
+                control={form.control}
+                name="otp"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enter OTP</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="* * * * * *"
+                        className="text-lg"
+                        type="number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              <Input
-                type="number"
-                className="text-xl font-bold aspect-square"
-              />
-              <Input
-                type="number"
-                className="text-xl font-bold aspect-square"
-              />
-              <Input
-                type="number"
-                className="text-xl font-bold aspect-square"
-              />
-              <Input
-                type="number"
-                className="text-xl font-bold aspect-square"
-              />
-              <Input
-                type="number"
-                className="text-xl font-bold aspect-square"
-              />
-            </div>
-            <Dialog className="bg-white">
-              <DialogTrigger>
-                <Button className="w-full">Verify</Button>
-              </DialogTrigger>
+              <Button
+                type="submit"
+                className="w-full bg-black text-white"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Verifying..." : "Verify OTP"}
+              </Button>
+              {errors.root && (
+                <p className=" text-red-500 text-center mt-0">
+                  {errors.root.message}
+                </p>
+              )}
+            </form>
+          </Form>
+          {/* <Dialog className="bg-white">
+              <DialogTrigger></DialogTrigger>
               <DialogContent className="bg-white">
                 <DialogHeader className="flex justify-center items-center">
                   <DialogTitle className="p-6 bg-black rounded-full outline outline-gray-500 ring-offset-4">
@@ -84,13 +116,12 @@ function EnterOtp() {
                       Your password has been updated successfully
                     </p>
                   </div>
-                  <Button className="w-11/12">
+                  <Button className="bg-black text-white w-11/12">
                     <Link to={"/login"}>Back to Login</Link>
                   </Button>
                 </div>
               </DialogContent>
-            </Dialog>
-          </form>
+            </Dialog> */}
         </div>
       </div>
     </section>

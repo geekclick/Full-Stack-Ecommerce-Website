@@ -1,4 +1,4 @@
-import { setIsLoggedIn, setUser } from "@/store/reducers/authSlice";
+import { setIsLoggedIn } from "@/store/reducers/authSlice";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,7 +7,6 @@ export const handleLogin = async (userInfo, dispatch, navigate, setError) => {
     try {
         const response = await axios.post("/api/login", userInfo);
         if (response) {
-            dispatch(setUser({ email: "", password: "" }))
             dispatch(setIsLoggedIn(true));
             navigate("/");
             toast.success("Login Success");
@@ -25,19 +24,31 @@ export const handleSignUp = async (userInfo, dispatch, navigate, setError) => {
     try {
         const response = await axios.post("/api/register", userInfo);
         if (response) {
-            dispatch(setUser({
-                fullName: "",
-                email: "",
-                password: "",
-            }));
-            dispatch(setIsLoggedIn(true));
-            navigate("/");
-            toast.success("Successfully Registered");
-            console.log("Register Success");
+            navigate("/verify-otp");
+            toast.success("Successfully Registered OTP sent to your registered email");
+            console.log("Register Success enter otp");
         }
     } catch (error) {
         if (error.response.status === 400 || error.response.data.error === "Passwords don't match") {
             toast.error("Passwords don't match");
+        }
+        setError('root', { message: error.response.data.msg });
+
+    }
+};
+
+export const verifyOtp = async (otp, dispatch, navigate, setError) => {
+    try {
+        const response = await axios.post("/api/verifyRegisterOTP", otp);
+        if (response) {
+            dispatch(setIsLoggedIn(true));
+            navigate("/");
+            toast.success("OTP verified Successfully");
+            console.log("Verification Success");
+        }
+    } catch (error) {
+        if (error.response.status === 400 || error.response.data.error === "OTP don't match") {
+            toast.error("OTP don't match");
         }
         setError('root', { message: error.response.data.msg });
 

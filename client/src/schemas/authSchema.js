@@ -56,3 +56,9 @@ export const signupSchema = z.object({
 }).refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
 });
+
+
+
+export const otpSchema = z.object({
+    otp: z.string().min(6, "OTP contains 6 numbers").max(6, "OTP contains only 6 numbers")
+})
