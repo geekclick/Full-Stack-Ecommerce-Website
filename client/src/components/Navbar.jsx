@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { LuSearch, LuHeart, LuShoppingCart } from "react-icons/lu";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Link } from "react-router-dom";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { LuSearch, LuHeart, LuShoppingCart } from "react-icons/lu";
+import { useSelector } from "react-redux";
 import MiniCart from "./MiniCart";
 import ProfilePhoto from "./ProfilePhoto";
 import SearchBar from "./home/SearchBar";
@@ -28,10 +28,10 @@ function Navbar() {
           <li className="">
             <Link to={"/shop"}>Shop</Link>
           </li>
-          <li className="">Our Story</li>
+          {/* <li className="">Our Story</li>
           <li className="">Wholesale</li>
           <li className="">Contact</li>
-          <li className="">Offers</li>
+          <li className="">Offers</li> */}
         </ul>
       </div>
       <div className="flex space-x-3 justify-between items-center">

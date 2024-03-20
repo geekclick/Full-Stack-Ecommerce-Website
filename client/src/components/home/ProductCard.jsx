@@ -26,7 +26,7 @@ function ProductCard(prodData) {
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}
-            className="flex items-end pb-4 justify-around h-[63%] w-[83%] top-0 rounded-xl bg-black/60 absolute"
+            className="flex items-end pb-4 justify-around h-[68%] w-[83%] top-0 rounded-xl absolute"
           >
             <Button
               className=" bg-pink-800 text-white rounded-full hover:outline"
