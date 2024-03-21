@@ -157,6 +157,5 @@ const sortProductsByPrice = async (req, res) => {
       res.status(500).json({ message: 'Internal Server Error' });
     }
 };
-  
 
 module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice,getProductByName}
