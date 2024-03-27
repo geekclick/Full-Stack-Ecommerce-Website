@@ -19,8 +19,8 @@ const register = async (req, res) => {
     const userExits = await User.findOne({ email });
 
     if (userExits) {
-      res.status(400).json({ msg: "Email already exits" });
-      console.log("User Already exits you idiot");
+      res.status(400).json({ msg: "Email already exist" });
+      console.log("User Already exist");
       return;
     }
 

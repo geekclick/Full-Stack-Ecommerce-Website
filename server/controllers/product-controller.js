@@ -7,7 +7,7 @@ const addProduct = async (req,res) => {
 
         const { name, description, price, images, category} = req.body;
 
-        const productExist = await product.findOne({cleanedName});
+        const productExist = await product.findOne({name});
         console.log(productExist);
 
         if(productExist){
