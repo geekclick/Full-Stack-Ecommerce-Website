@@ -97,15 +97,15 @@ userSchema.methods.sendOTP = async function() {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'derixkale@gmail.com',  // Use your actual Gmail address
-              pass: 'wvgisepyvcscefjo'  // Use the app password, not your regular password
+              user: 'ecomuser24@gmail.com',  // Use your actual Gmail address
+              pass: 'tbwbhyurwgyydtcf'  // Use the app password, not your regular password
             }
           });
           
 
         const mailOptions = {
             
-            from: 'derixkale@gmail.com',
+            from: 'ecomuser24@gmail.com',
             to: this.email,
             subject: 'OTP for Password Reset',
             text: `Your OTP for password reset is: ${otp}`
@@ -131,15 +131,15 @@ userSchema.methods.registerOTP = async function() {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'derixkale@gmail.com',  // Use your actual Gmail address
-              pass: 'wvgisepyvcscefjo'  // Use the app password, not your regular password
+              user: 'ecomuser24@gmail.com',  // Use your actual Gmail address
+              pass: 'tbwbhyurwgyydtcf'  // Use the app password, not your regular password
             }
           });
           
 
         const mailOptions = {
             
-            from: 'derixkale@gmail.com',
+            from: 'ecomuser24@gmail.com',
             to: this.email,
             subject: 'Verify Your Email Address',
             text: `Your OTP for account creation is: ${otp}`
