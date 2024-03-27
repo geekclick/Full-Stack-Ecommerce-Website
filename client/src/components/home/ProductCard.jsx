@@ -10,7 +10,6 @@ import { addToCart } from "@/store/reducers/cartSlice";
 
 function ProductCard(prodData) {
   const dispatch = useDispatch();
-
   const [isHovered, setIsHovered] = useState(false);
   const toggleHover = () => setIsHovered(!isHovered);
   return (

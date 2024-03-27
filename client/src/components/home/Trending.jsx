@@ -1,17 +1,12 @@
 import CardsLayout from "./CardsLayout";
 import ProductCard from "./ProductCard";
-function Trending() {
+function Trending({ productList }) {
   return (
     <CardsLayout tagline="For this Session" title="Trending & New">
       <div className="grid grid-cols-4 gap-8 p-20">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {productList.map((item, i) => {
+          if (i < 8) return <ProductCard key={i} {...item} />;
+        })}
       </div>
     </CardsLayout>
   );

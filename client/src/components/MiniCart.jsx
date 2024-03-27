@@ -3,16 +3,20 @@ import { BsBagX } from "react-icons/bs";
 import minicart from "@/assets/minicart.png";
 import Image from "./Image";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeProduct } from "@/store/reducers/cartSlice";
 function MiniCart() {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartSlice.cart);
-  console.log(cart);
   return (
     <>
       <div className="flex justify-between items-start w-full">
         <h1 className="uppercase font-bold text-[18px]">review cart</h1>
         <BsBagX className=" scale-105 text-[#8D8A94]" />
       </div>
+      {cart.length <= 0 && (
+        <h1 className="font-semibold m-auto text-xl">Your cart is empty!</h1>
+      )}
       {cart.map((item, i) => {
         return (
           <div
@@ -31,7 +35,7 @@ function MiniCart() {
                 </span>
               </p>
             </div>
-            <div>
+            <div onClick={() => dispatch(removeProduct(item.name))}>
               <IoIosCloseCircle className="text-[#8d8a94] scale-150 cursor-pointer" />
             </div>
           </div>

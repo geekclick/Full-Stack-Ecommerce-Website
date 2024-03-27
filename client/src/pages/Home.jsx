@@ -19,12 +19,12 @@ function home() {
       <Navbar />
       <Hero />
       <Callout />
-      <Trending />
+      <Trending productList={productList} />
       <Callout2 />
       <CardsLayout tagline="For Women" title="Choices forthe season">
         <div className="grid grid-cols-4 gap-8 p-20">
           {productList.map((prodData, i) => {
-            return <ProductCard key={i} {...prodData} />;
+            if (i > 7) return <ProductCard key={i} {...prodData} />;
           })}
         </div>
       </CardsLayout>

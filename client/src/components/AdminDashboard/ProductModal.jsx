@@ -77,7 +77,7 @@ function ProductModal({ children }) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="dark:text-black">Name</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter product name" {...field} />
                   </FormControl>
@@ -90,7 +90,7 @@ function ProductModal({ children }) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel className="dark:text-black">Description</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Tell us a little bit about product"
@@ -107,7 +107,7 @@ function ProductModal({ children }) {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price</FormLabel>
+                  <FormLabel className="dark:text-black">Price</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter product price"
@@ -124,13 +124,13 @@ function ProductModal({ children }) {
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel className="dark:text-black">Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="bg-white">
+                      <SelectTrigger className="bg-white dark:text-black">
                         <SelectValue placeholder="Select valid producct Category" />
                       </SelectTrigger>
                     </FormControl>
@@ -160,7 +160,7 @@ function ProductModal({ children }) {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                   <div className="space-y-0.5">
-                    <FormLabel className="text-base">
+                    <FormLabel className="text-base dark:text-black">
                       Product Available
                     </FormLabel>
                   </div>

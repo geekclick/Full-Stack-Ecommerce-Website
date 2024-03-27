@@ -18,6 +18,7 @@ export const addProduct = async (productInfo, dispatch, navigate, setError) => {
             navigate("/admin/products");
             toast.success("Product Added Successfully");
             console.log("Success");
+            window.location.reload();
         }
     } catch (error) {
         if (error.response.status === 400 || error.response.data.error === "Password doesn't match") {
