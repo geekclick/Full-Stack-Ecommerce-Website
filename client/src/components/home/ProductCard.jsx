@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import card1 from "@/assets/card1.png";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { FaRegHeart } from "react-icons/fa6";
 import Heart from "../Heart";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/reducers/cartSlice";
@@ -34,7 +33,7 @@ function ProductCard(prodData) {
               ADD TO CART
             </Button>
 
-            <Heart />
+            <Heart {...prodData} />
           </motion.div>
         </div>
         <div className="bg-black w-[100px] mt-4 h-[1px]"></div>

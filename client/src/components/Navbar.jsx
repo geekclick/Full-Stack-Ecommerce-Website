@@ -11,8 +11,10 @@ import { useSelector } from "react-redux";
 import MiniCart from "./MiniCart";
 import ProfilePhoto from "./ProfilePhoto";
 import SearchBar from "./home/SearchBar";
+import { Input } from "./ui/input";
 
 function Navbar() {
+  const whishlist = useSelector((state) => state.whishlistSlice.whishlist);
   const cart = useSelector((state) => state.cartSlice.cart);
   const isLoggedIn = useSelector((state) => state.authSlice.isLoggedIn);
   return (
@@ -38,13 +40,18 @@ function Navbar() {
         <ul className="flex space-x-3 text-xl cursor-pointer justify-center items-center">
           <li>{/* <SearchBar /> */}</li>
           <li>
-            <LuSearch />
+            <div className="flex justify-center items-center">
+              <Input placeholder="Search here" className="h-1/2" />
+              <Button className="bg-transparent w-fit text-xl">
+                <LuSearch />
+              </Button>
+            </div>
           </li>
           <li className="relative">
             <Link to={"/wishlist"}>
               <LuHeart />
               <Badge className="absolute -top-2 -right-1 w-3 h-3 p-1 m-auto aspect-square bg-secondary text-white text-[8px]">
-                1
+                {whishlist.length || 0}
               </Badge>
             </Link>
           </li>
