@@ -1,10 +1,10 @@
 const product = require('../models/product-model');
+const catchAsyncErrors = require('../middlewares/catchAsyncError');
 
 //-------------------------- Add Product ----------------------------//
-const addProduct = async (req,res) => {
+const addProduct = catchAsyncErrors(async (req,res) => {
 
-    try{
-
+    
         const { name, description, price, images, category} = req.body;
 
         const productExist = await product.findOne({name});
@@ -18,26 +18,23 @@ const addProduct = async (req,res) => {
 
         res.status(200).json({msg: "product created successfully"});
 
-    }
-    catch(error){
-         res.status(500).json({msg:"Internal server error ",error})
-    }
-};
+  
+});
 
 //-------------------------- Delete Product ----------------------------//
 
-const deleteProduct = async (req, res) =>{
+const deleteProduct = catchAsyncErrors (async (req, res) =>{
 
     const deleteProduct = await product.findOneAndDelete(
         { name: req.body.name}
     );
     res.status(200).json({msg: "product deleted successfully"});
-};
+});
 
 //-------------------------- Update Product ----------------------------//
 
-const updateProduct = async (req, res) => {
-    try {
+const updateProduct = catchAsyncErrors (async (req, res) => {
+    
         const updateResult = await product.findOneAndUpdate(
             {name: req.body.name},
             {
@@ -51,15 +48,13 @@ const updateProduct = async (req, res) => {
         res.json(updateResult);
         res.status(200).json({msg:"Product Updated"})
         
-    } catch (error) {
-        res.status(500).json({msg:"Internal server error ",error});
-    }
-};
+   
+});
 
 //-------------------------- Get Product ----------------------------//
 
-const getProduct = async (req, res) =>{
-    try {
+const getProduct = catchAsyncErrors (async (req, res) =>{
+    
         const products = await product.find();
         console.log("Products from get products : ",products);
 
@@ -67,17 +62,13 @@ const getProduct = async (req, res) =>{
             res.status(404).json({msg:"No products found"});
         }
 
-        return res.status(200).json(products)
-    } catch (error) {
-        console.error("Error in getProduct:", error);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
-};
+         res.status(200).json(products)
+    
+});
 
 //-------------------------- Get Product By Categories ----------------------------//
 
-const getProductByCategory = async (req, res) =>{
-    try {
+const getProductByCategory = catchAsyncErrors (async (req, res) =>{
         const { categories } = req.body;
 
         //-------------------------Category Exits ---------------------//
@@ -94,17 +85,12 @@ const getProductByCategory = async (req, res) =>{
         }
     
         res.json(products);
-      } catch (error) {
-        console.error("Error in getProductByCategory:", error);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
-};
+});
 
 //-------------------------- Get Product By Name----------------------------//
 
-const getProductByName = async (req, res) =>{
+const getProductByName = catchAsyncErrors (async (req, res) =>{
   const { name } = req.body;
-    try {
         //-------------------------Product Exists ---------------------//
         const productExists = await product.findOne({ name:name});
         
@@ -121,16 +107,12 @@ const getProductByName = async (req, res) =>{
         }
     
         res.json(products);
-      } catch (error) {
-        console.error("Error in getProductByName:", error);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
-}
+
+})
 
 //-------------------------- sort product by price ----------------------------//
 
-const sortProductsByPrice = async (req, res) => {
-    try {
+const sortProductsByPrice = catchAsyncErrors (async (req, res) => {
       const { sortBy } = req.body;
       let sortCriteria = {};
   
@@ -152,10 +134,14 @@ const sortProductsByPrice = async (req, res) => {
       }
   
       res.json(products);
-    } catch (error) {
-      console.error("Error in sortProductsByPrice:", error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
+});
 
-module.exports = {addProduct, deleteProduct, updateProduct, getProduct, getProductByCategory,sortProductsByPrice,getProductByName}
+module.exports = {
+  addProduct, 
+  deleteProduct, 
+  updateProduct, 
+  getProduct, 
+  getProductByCategory,
+  sortProductsByPrice,
+  getProductByName
+}

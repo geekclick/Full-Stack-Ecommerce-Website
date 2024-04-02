@@ -17,5 +17,4 @@ router.route('/forgotPassword').post(forgotcontroller.forgotPassword);
 router.route('/verifyOtp').post(forgotcontroller.verifyOtp);
 router.route('/resetPassword').post(forgotcontroller.resetPassword);
 
-
 module.exports = router;

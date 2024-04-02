@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/user-model');
 const nodemailer = require('nodemailer');
+const catchAsyncErrors = require('../middlewares/catchAsyncError');
 
 //------------------------ Home -----------------------//
 const home = (req, res) => {
@@ -12,9 +13,8 @@ const home = (req, res) => {
 };
 
 //------------------------ Register -----------------------//
-const register = async (req, res) => {
-  try {
-
+const register = catchAsyncErrors (async (req, res) => {
+ 
     const { fullName,email, password } = req.body;
     const userExits = await User.findOne({ email });
 
@@ -42,18 +42,14 @@ const register = async (req, res) => {
       userId: data._id.toString(),
     });
 
-  } catch (error) {
-    console.log(error, "Internal Server Error");
-    return res.status(500).json({ msg: "Internal Server Error" });
-  }
-};
+  
+});
 
 //------------------------ Verify OTP -----------------------//
 
-const verifyOTP = async (req, res) => {
+const verifyOTP =catchAsyncErrors ( async (req, res) => {
   const { otp } = req.body;
 
-  try {
     const userEmail = req.cookies.userEmail;
     const newotp = req.cookies.otp;
     if (!userEmail) {
@@ -77,17 +73,12 @@ const verifyOTP = async (req, res) => {
       res.status(400).json({ success: false, message: "Invalid OTP." });
     }
 
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: "Internal Server Error" });
-  }
-};
+});
 
 //------------------------ login -----------------------//
 
-const login = async (req, res) => {
-  try {
+const login = catchAsyncErrors (async (req, res) => {
+
     const { email, password } = req.body;
     const userExists = await User.findOne({ email });
 
@@ -112,14 +103,11 @@ const login = async (req, res) => {
       }
     }
 
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ msg: "Internal Server Error" });
-  }
-};
+});
 
-const getAllUser = async(req,res)=>{
-  try {
+//--------------------------------- List All User ----------------------------//
+const getAllUser = catchAsyncErrors( async(req,res)=>{
+  
     const user = await User.find();
     console.log("Products from get products : ",user);
 
@@ -128,10 +116,10 @@ const getAllUser = async(req,res)=>{
     }
 
     return res.status(200).json(user)
-  } catch (error) {
-    res.status(500).json({msg: "Internal Server Error"});
-  }
-}
+  
+})
+
+
 
 module.exports = {
   home,
